@@ -12,14 +12,32 @@ module.exports = function(grunt) {
         		],
         		dest: 'js/build/production.js',
    			}
+		},
+		uglify: {
+    		build: {
+        		src: 'js/build/production.js',
+        		dest: 'js/build/production.min.js'
+    		}
+		},
+		imagemin: {
+    		dynamic: {
+        		files: [{
+            		expand: true,
+            		cwd: 'images/',
+            		src: ['**/*.{png,jpg,gif}'],
+            		dest: 'images/build/'
+		        }]
+		    }
 		}
 
     });
 
     // 3. Where we tell Grunt we plan to use this plug-in.
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-imagemin');
 
     // 4. Where we tell Grunt what to do when we type "grunt" into the terminal.
-    grunt.registerTask('default', ['concat']);
+    grunt.registerTask('default', ['concat', 'uglify', 'imagemin']);
 
 };
